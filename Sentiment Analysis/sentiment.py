@@ -1,6 +1,7 @@
 from __future__ import division
 from string import punctuation
-import urllib,os
+import urllib
+import csv
 
 pos_count = 0
 neg_count = 0
@@ -29,5 +30,40 @@ for tweet in tweets_list[0:10]:
     print tweet
 
 print tweets_list[1:3]
-#print pos_count/len(words)
-#print neg_count/len(words)
+
+
+pos_sent = open("positive.txt").read()
+positive_words = pos_sent.split("\n")
+positive_count = []
+
+neg_sent = open("positive.txt").read()
+negative_words = pos_sent.split("\n")
+negative_count = []
+
+for tweet in tweets_list:
+    positive_counter = 0
+    negative_counter = 0
+
+    tweet_processed = tweet.lower()
+
+    for p in list(punctuation):
+        tweet_processed = tweet_processed.replace(p,'')
+
+    words = tweet_processed.split(' ')
+    word_count = len(words)
+
+    for word in words:
+        if word in positive_words:
+            positive_counter += 1
+        elif word in negative_words:
+            negative_counter += 1
+
+    positive_count.append(positive_counter/word_count)
+    negative_count.append(negative_counter/word_count)
+
+print len(positive_count)
+
+output = zip(tweets_list,positive_count,negative_count)
+
+writer = csv.writer(open('tweet_sentiment.csv','wb'))
+writer.writerows(output)
