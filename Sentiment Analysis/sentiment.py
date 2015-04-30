@@ -4,29 +4,30 @@ import urllib,os
 
 pos_count = 0
 neg_count = 0
-url='http://www.unc.edu/~ncaren/haphazard/'
-path = r'/home/amitoj/Projects/Sentiment Analysis/'
+url1='http://www.unc.edu/~ncaren/haphazard/negative.txt'
+file_name1= 'negative.txt'
+urllib.urlretrieve(url1,file_name1)
 
-files=['negative.txt','positive_text','obama_tweets.txt']
-for file_name in files:
-    urllib.urlretrieve(url,file_name)
+url2 ='http://www.unc.edu/~ncaren/haphazard/positive.txt'
+file_name2 = 'positive.txt'
+urllib.urlretrieve(url2,file_name2)
 
-positive_words = ['awesome', 'good', 'nice', 'super','fun','delightful']
-negative_words = ['awful', 'lame', 'horrible', 'bad']
-emotional_words = negative_words + positive_words
-tweet = 'Hello there! A beautiful day for a nice game!'
-for p in list(punctuation):
+url3='http://www.unc.edu/~ncaren/haphazard/obama_tweets.txt'
+file_name3= 'obama_tweets.txt'
+urllib.urlretrieve(url3,file_name3)
+
+#positive_words = ['awesome', 'good', 'nice', 'super','fun','delightful']
+#negative_words = ['awful', 'lame', 'horrible', 'bad']
+#emotional_words = negative_words + positive_words
+tweets = open("obama_tweets.txt").read()
+'''for p in list(punctuation):
     tweet = tweet.replace(p,'')
-#tweetl = tweet.lower()
-words = tweet.split(' ')
-for word in words:
-    if word.lower() in positive_words:
-        print word.lower()
-        pos_count += 1
-for word in words:
-    if word.lower() in negative_words:
-        print word.lower()
-        neg_count += 1
+#tweetl = tweet.lower()'''
+tweets_list = tweets.split('\n')
 
-print pos_count/len(words)
-print neg_count/len(words)
+for tweet in tweets_list[0:10]:
+    print tweet
+
+print tweets_list[1:3]
+#print pos_count/len(words)
+#print neg_count/len(words)
